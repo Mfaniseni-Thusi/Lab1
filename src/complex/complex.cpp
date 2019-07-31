@@ -14,8 +14,8 @@ int main()
 	auto answer = num1 * num2; // type deduced for 'answer' is: complex<float>
 
 	cout << "The answer is: " << answer << endl;
-	cout << "Or in a more familiar form: " << answer.real() 
-			<< " + " << answer.imag() << "j" 
+	cout << "Or in a more familiar form: " << answer.real()
+			<< " + " << answer.imag() << "j"
 			<< endl	<< endl;
 
 	// answer++;
@@ -23,3 +23,7 @@ int main()
 	return 0;
 }
 
+/* Answer to Exercise 3.1
+  - The compiler is programmed to ignore every line that comes after // notation in a single line
+  - Every thing inside /* notation in the whole code
+*/
