@@ -31,10 +31,14 @@ void Screen::back()
 }
 
 void Screen::up()
-{   // move cursor_ up one row of screen
-	// do not wrap around
-	if ( row() == 1 ) // at top?
-		cerr << "Screen::up - Cannot wrap around in a vertical direction" << endl;
+{
+	if ( row() == 1 ){
+            if(cursor_ + 2 > width_){
+                end();
+            } else{
+                move(height_, cursor_+2);
+            }
+	}
 	else
 		cursor_ -= width_;
 
@@ -42,10 +46,15 @@ void Screen::up()
 }
 
 void Screen::down()
-{   // move cursor_ down one row of screen
-	// do not wrap around
-	if ( row() == height_ ) // at bottom?
-		cerr << "Screen::down - Cannot wrap around in a vertical direction" << endl;
+{
+	if ( row() == height_ ){
+        if(cursor_ + 2 > height_*width_){
+            home();
+        } else{
+            move(1, cursor_+2);
+        }
+	}
+
 	else
 		cursor_ += width_;
 
@@ -63,6 +72,34 @@ void Screen::move( string::size_type row, string::size_type col )
 	}
 
 	return;
+}
+
+void Screen::move(Direction dir){
+    if (dir == Direction::DOWN){
+        down();
+
+        return;
+    } else if(dir == Direction::UP){
+        up();
+
+        return;
+    } else if(dir == Direction::FORWARD){
+        forward();
+
+        return;
+    } else if(dir == Direction::BACK){
+        back();
+
+        return;
+    } else if(dir == Direction::HOME){
+        home();
+
+        return;
+    } else if(dir == Direction::END){
+        end();
+
+        return;
+    }
 }
 
 char Screen::get( string::size_type row, string::size_type col )
@@ -176,3 +213,35 @@ string::size_type Screen::row() const
 	return (cursor_ + width_)/width_;
 }
 
+/* Exercise 4.3
+   Clients don't get to see what is happening in the background. We are still using the same functions after all therefore
+   adding this functionality doesn't make the code any efficient.
+*/
+
+void Screen::getSquare(string::size_type rCoordinate, string::size_type cCoordinate, string::size_type squareDim)
+{
+    if((rCoordinate+squareDim-1) < height_ && (cCoordinate+squareDim-1) < width_){
+        for(string::size_type rCoord=1; rCoord <= squareDim; rCoord++){
+            move((rCoord+rCoordinate-1),cCoordinate);
+            set('*');
+            move((rCoord+rCoordinate-1),cCoordinate+squareDim-1);
+            set('*');
+        }
+        for(string::size_type cCoord=1; cCoord <= squareDim; cCoord++){
+            move(rCoordinate,(cCoord+cCoordinate-1));
+            set('*');
+            move(rCoordinate+squareDim-1,(cCoord+cCoordinate-1));
+            set('*');
+        }
+    }
+    else{
+        cerr << "A square of " << squareDim << " by " << squareDim << " from point "
+        <<  rCoordinate << "," << cCoordinate << " exceed your screen boundaries!" << endl;
+    }
+}
+
+/* Exercise 4.5
+   This feature forms part of the screen. In the actual screens,
+   this is taken care of by the scrolling bars to accommodate the part of what a user does in the screen
+   which would otherwise not fit inside the screen boundaries.
+*/
