@@ -217,3 +217,31 @@ string::size_type Screen::row() const
    Clients don't get to see what is happening in the background. We are still using the same functions after all therefore
    adding this functionality doesn't make the code any efficient.
 */
+
+void Screen::getSquare(string::size_type rCoordinate, string::size_type cCoordinate, string::size_type squareDim)
+{
+    if((rCoordinate+squareDim-1) < height_ && (cCoordinate+squareDim-1) < width_){
+        for(string::size_type rCoord=1; rCoord <= squareDim; rCoord++){
+            move((rCoord+rCoordinate-1),cCoordinate);
+            set('*');
+            move((rCoord+rCoordinate-1),cCoordinate+squareDim-1);
+            set('*');
+        }
+        for(string::size_type cCoord=1; cCoord <= squareDim; cCoord++){
+            move(rCoordinate,(cCoord+cCoordinate-1));
+            set('*');
+            move(rCoordinate+squareDim-1,(cCoord+cCoordinate-1));
+            set('*');
+        }
+    }
+    else{
+        cerr << "A square of " << squareDim << " by " << squareDim << " from point "
+        <<  rCoordinate << "," << cCoordinate << " exceed your screen boundaries!" << endl;
+    }
+}
+
+/* Exercise 4.5
+   This feature forms part of the screen. In the actual screens,
+   this is taken care of by the scrolling bars to accommodate the part of what a user does in the screen
+   which would otherwise not fit inside the screen boundaries.
+*/

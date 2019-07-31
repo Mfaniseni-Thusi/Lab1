@@ -62,6 +62,8 @@ class Screen {
         // check whether the specified co-ordinates lie within the screen
         bool checkRange(string::size_type row, string::size_type col) const;
 
+        void getSquare(string::size_type rCoordinate, string::size_type cCoordinate, string::size_type squareDim);
+
     private:
         // constants
         // 0 represents the top-left screen element

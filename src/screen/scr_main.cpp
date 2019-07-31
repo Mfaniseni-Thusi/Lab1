@@ -53,6 +53,11 @@ int main()
 
 	myScreen.display();
 	cout << endl;
+	myScreen.clear(' ');
+
+	myScreen.getSquare(4,4,4);  // Exercise 4.5
+	myScreen.display();
+	cout << endl;
 	myScreen.clear();
 
 	return 0;
