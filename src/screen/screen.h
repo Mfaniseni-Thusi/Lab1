@@ -18,9 +18,11 @@ public:
 	Screen(string::size_type height, string::size_type width, char bkground = '#');
 
 	// get the Screen's height
-	string::size_type height() const { return height_; }
+	string::size_type height() const { return height_; }   // CONSTANT MEMBER FUNCTION INLINE - this function cannot change anything inside itself
+                                                           // it's a read-only file
 	// get the Screen's width
-	string::size_type width() const { return width_; }
+	string::size_type width() const { return width_; }     // CONSTANT MEMBER FUNCTION INLINE - this function cannot change anything inside itself
+                                                           // it's a read-only file
 
 	// place the cursor at the top-left corner of the screen
 	void home() { cursor_ = 0;  return; }
@@ -45,14 +47,16 @@ public:
 	// write a character on the screen at the current cursor position
 	void set( char ch );
 	// write a string of characters on the screen starting at the current cursor position
-	void set( const string& s );
+	void set( const string& s );  // CONSTANT MEMBER (string) this string cannot be changed inside this function
+
 	// overwrite the entire screen with the specified character
 	void clear( char bkground = '#');
 
 	// resize the screen
 	void reSize( string::size_type height, string::size_type width, char bkground = '#');
 	// display the screen
-	void display() const;
+	void display() const;              // CONSTANT MEMBER FUNCTION OUTLINE - this function cannot change anything inside itself
+                                       // it's a read-only file
 	// check whether the specified co-ordinates lie within the screen
 	bool checkRange(string::size_type row, string::size_type col) const;
 
@@ -60,10 +64,11 @@ private:
 	// constants
 	// 0 represents the top-left screen element
 	const string::size_type TOP_LEFT = 0;
-	
+
 	// private member functions
 	string::size_type remainingSpace() const;
-	string::size_type row() const;
+	string::size_type row() const;   // CONSTANT MEMBER FUNCTION OUTLINE - this function cannot change anything inside itself
+                                       // it's a read-only file
 
 	// private data members
 	// (using a trailing underscore is a naming convention for private data - not a requirement)
@@ -71,7 +76,7 @@ private:
 	// number of Screen rows
 	string::size_type height_;
 	// number of Screen columns
-	string::size_type width_;	
+	string::size_type width_;
 	// default position of the Screen's cursor, use in-class initilisation
 	string::size_type cursor_ = TOP_LEFT;
 	// the Screen's data is stored as a string
