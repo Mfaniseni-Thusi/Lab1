@@ -65,6 +65,34 @@ void Screen::move( string::size_type row, string::size_type col )
 	return;
 }
 
+void Screen::move(Direction dir){
+    if (dir == Direction::DOWN){
+        down();
+
+        return;
+    } else if(dir == Direction::UP){
+        up();
+
+        return;
+    } else if(dir == Direction::FORWARD){
+        forward();
+
+        return;
+    } else if(dir == Direction::BACK){
+        back();
+
+        return;
+    } else if(dir == Direction::HOME){
+        home();
+
+        return;
+    } else if(dir == Direction::END){
+        end();
+
+        return;
+    }
+}
+
 char Screen::get( string::size_type row, string::size_type col )
 {
 	// position cursor_
@@ -176,3 +204,7 @@ string::size_type Screen::row() const
 	return (cursor_ + width_)/width_;
 }
 
+/* Exercise 4.3
+   Clients don't get to see what is happening in the background. We are still using the same functions after all therefore
+   adding this functionality doesn't make the code any efficient.
+*/
